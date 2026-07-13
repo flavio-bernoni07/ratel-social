@@ -1,0 +1,26 @@
+name: LinkedIn Performance Tracker
+
+on:
+  schedule:
+    - cron: '0 14 * * *'  # daily at 14:00 UTC
+  workflow_dispatch:       # manual trigger from Actions tab
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r tracker/requirements.txt
+
+      - name: Run tracker
+        run: python tracker/linkedin_tracker.py
+        env:
+          NOTION_API_KEY:       ${{ secrets.NOTION_API_KEY }}
+          LINKEDIN_API_TOKEN:   ${{ secrets.LINKEDIN_API_TOKEN }}
+          LINKEDIN_ORG_ID:      ${{ secrets.LINKEDIN_ORG_ID }}

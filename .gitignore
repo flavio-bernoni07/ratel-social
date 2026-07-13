@@ -1,0 +1,22 @@
+# Local Ratel config (user-specific paths and credentials)
+.ratel/
+
+# Claude Code local settings (user-specific: statusline path, etc.)
+.claude/settings.local.json
+
+# Environment files (never commit real credentials)
+.env
+tracker/.env
+
+# macOS
+.DS_Store
+
+# Large media / accidental clones do not belong in this repo.
+# If you ever see a top-level directory here with its own .git/ inside it
+# (`find . -maxdepth 2 -name .git`), it's a stray clone — remove it, don't commit it.
+*.mp4
+*.mov
+/videos/
+node_modules/
+__pycache__/
+*.pyc

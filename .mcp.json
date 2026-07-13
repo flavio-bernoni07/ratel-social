@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "ratel-mcp": {
+      "type": "stdio",
+      "command": "/Users/flaviobernoni/Library/pnpm/bin/ratel-mcp",
+      "args": [
+        "serve",
+        "--config",
+        "/Users/flaviobernoni/.ratel/config.json",
+        "--config",
+        "/Users/flaviobernoni/Developer/ratel-social/.ratel/config.json"
+      ]
+    }
+  }
+}
