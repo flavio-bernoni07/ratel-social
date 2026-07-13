@@ -37,8 +37,9 @@ perfect topic fit but a hard "no self-promotion" rule is a fail — pick the nex
 
 ## Candidate shortlist
 
-This is real prior research (from `docs/launch-weeks.md`'s Reddit Strategy section), not an
-invented list. Re-vet live before every use — subreddit rules change.
+This is real prior research (from the predecessor repo's `docs/launch-weeks.md` Reddit Strategy
+section, carried over here — that file itself isn't part of this repo), not an invented list.
+Re-vet live before every use — subreddit rules change.
 
 - **Tier A** — build-in-public / founder journey: r/microsaas, r/SideProject, r/buildinpublic.
   Explicitly **not** r/indiehackers (prior exclusion — keep it).

@@ -107,7 +107,7 @@ Drive Ratel's visibility, discoverability, and credibility through strategic con
 - Rob (CTO handle `@rstagi_`): Mechanism + internals, postmortems, honest technical depth. Reference voice: `@davideciffa` (Lucebox).
 - Brand handle (`@Ratel_AI`): Low-touch credential, reposts founders only.
 
-**Format reference:** `@EXM7777` (Machina) — teaching-thread playbooks over single-insight tweets: lowercase "how to [outcome]" or contrarian pattern-break hooks, numbered thread structure, concrete numbers/timeframes in the hook. Governs *how* X posts are built (hook shape, thread structure); Jack/Rob references above still govern *who's* speaking and *what* they say. Full rules in `.claude/commands/post-notion.md` → X STYLE BIBLE.
+**Format reference:** `@EXM7777` (Machina) — teaching-thread playbooks over single-insight tweets: lowercase "how to [outcome]" or contrarian pattern-break hooks, numbered thread structure, concrete numbers/timeframes in the hook. Governs *how* X posts are built (hook shape, thread structure); Jack/Rob references above still govern *who's* speaking and *what* they say. Full rules in `context/x-style.md`.
 
 **Target creators** (turn on notifications):
 `@hrishioa`, `@nutlope`, `@goodside`, `@marktenenholtz`, `@hyhieu226`, `@_xjdr`, `@ivanfioravanti`, `@ash_twtz`, `@Surendar__05`, `@vivek_naskar`, `@i_amanchadha`, `@jovandotse`, `@DegenApeDev`, `@manishkumar_dev`, `@EXM7777`.

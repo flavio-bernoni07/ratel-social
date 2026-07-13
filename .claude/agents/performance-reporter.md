@@ -50,8 +50,8 @@ Impressions: [avg] · Engagement rate: [avg]%
 ## What NOT to do
 
 - Don't make up numbers, only report what's actually in Notion.
-- If metrics are missing (tracker not run yet, or X/Reddit tracking not wired up — see
-  `tracker/x_tracker.py` and `tracker/reddit_tracker.py`, both stubs as of this writing), say so
-  clearly rather than silently omitting a platform.
+- If metrics are missing (tracker not run yet, or X/Reddit credentials not configured yet — see
+  `tracker/x_tracker.py` and `tracker/reddit_tracker.py`), say so clearly rather than silently
+  omitting a platform.
 - Don't suggest content that violates `context/hard-rules.md`.
 - Keep it under 300 words.
