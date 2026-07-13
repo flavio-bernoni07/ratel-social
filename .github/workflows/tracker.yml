@@ -1,9 +1,12 @@
-name: LinkedIn Performance Tracker
+name: Content Performance Tracker
 
 on:
-  schedule:
-    - cron: '0 14 * * *'  # daily at 14:00 UTC
-  workflow_dispatch:       # manual trigger from Actions tab
+  # schedule:
+  #   - cron: '0 14 * * *'  # daily at 14:00 UTC — re-enable once NOTION_API_KEY (and at least
+  #   one of LINKEDIN_API_TOKEN/LINKEDIN_ORG_ID, X_API_BEARER_TOKEN, or REDDIT_CLIENT_ID/SECRET)
+  #   are added as repo secrets. Left disabled for now so this doesn't fail daily for lack of
+  #   credentials. The Reddit-only /schedule cloud routine covers Reddit tracking in the meantime.
+  workflow_dispatch:       # manual trigger from Actions tab, works today for testing once secrets exist
 
 jobs:
   track:
@@ -18,9 +21,23 @@ jobs:
       - name: Install dependencies
         run: pip install -r tracker/requirements.txt
 
-      - name: Run tracker
+      - name: Run LinkedIn tracker
         run: python tracker/linkedin_tracker.py
         env:
+          NOTION_API_KEY:     ${{ secrets.NOTION_API_KEY }}
+          LINKEDIN_API_TOKEN: ${{ secrets.LINKEDIN_API_TOKEN }}
+          LINKEDIN_ORG_ID:    ${{ secrets.LINKEDIN_ORG_ID }}
+
+      - name: Run X tracker
+        run: python tracker/x_tracker.py
+        env:
+          NOTION_API_KEY:     ${{ secrets.NOTION_API_KEY }}
+          X_API_BEARER_TOKEN: ${{ secrets.X_API_BEARER_TOKEN }}
+
+      - name: Run Reddit tracker
+        run: python tracker/reddit_tracker.py
+        env:
           NOTION_API_KEY:       ${{ secrets.NOTION_API_KEY }}
-          LINKEDIN_API_TOKEN:   ${{ secrets.LINKEDIN_API_TOKEN }}
-          LINKEDIN_ORG_ID:      ${{ secrets.LINKEDIN_ORG_ID }}
+          REDDIT_CLIENT_ID:     ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT:    ${{ secrets.REDDIT_USER_AGENT }}

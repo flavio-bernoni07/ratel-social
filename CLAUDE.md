@@ -3,15 +3,20 @@
 This is Ratel's private multi-platform social content workspace. You help draft, review, and
 manage LinkedIn, X, and Reddit posts for Ratel through one orchestrated pipeline.
 
-## The skill
+## The skills
 
 `/draft` — Give a date and a topic. The orchestrator runs Style Scout research, spawns a
 specialized drafter per platform (LinkedIn, X, Reddit), runs each draft through an Independent
 Reviewer with up to 2 automatic revision rounds, then writes the approved result to Notion plus a
 calendar reminder. Nothing auto-publishes — every output is a reviewable Notion draft.
 
-`/weekly-strategy` — Dormant weekly planner. `trend-scout` and `performance-reporter` exist and
-work; this command just isn't part of the `/draft` loop yet.
+`/strategy` — Give a goal and a date range. Spawns `performance-reporter` + `trend-scout` +
+`campaign-planner` to sequence a day-by-day content calendar (type, platform, topic brief), then
+writes skeleton Notion rows (`Status: Not started`) once approved. Does not draft copy — that's
+still `/draft`, run per slot once you're ready.
+
+`/weekly-strategy` — Older, simpler performance+trends → text plan. Superseded by `/strategy` for
+anything that needs actual Notion rows, kept because it shares `trend-scout`/`performance-reporter`.
 
 ## Architecture
 
@@ -51,6 +56,12 @@ weekly-plan block — it doesn't exist anymore (confirmed live 2026-07-13).
 **Never change the `Account` multi_select's option set** without explicit sign-off — it's a shared
 database Luce and Giacomo also use. If a post needs an account tag that doesn't exist yet (e.g. a
 non-Jack Reddit persona), surface that to the user instead of adding the option yourself.
+
+Metric properties are per-platform (`LinkedIn Reactions`/`Comments`/`Shares`/`Impressions`/
+`Engagement Rate`, `X Likes`/`Replies`/`Reposts`/`Impressions`/`Engagement Rate`, `Reddit Upvotes`/
+`Comments`/`Upvote Ratio`), added 2026-07-13 by renaming the old repo's single LinkedIn-only
+columns and adding new ones for X/Reddit, since one row can carry a post on all three platforms at
+once. `tracker/notion_client.py` has one update function per platform — use the matching one.
 
 ## What Ratel is (load before drafting any post or content)
 

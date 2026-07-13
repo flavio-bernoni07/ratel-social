@@ -163,7 +163,7 @@ def run() -> None:
             continue
 
         try:
-            notion_client.update_metrics(page_id, stats)
+            notion_client.update_linkedin_metrics(page_id, stats)
             r, c, s, i = stats["reactions"], stats["comments"], stats["shares"], stats["impressions"]
             print(f"    ✓ {r} reactions · {c} comments · {s} shares · {i} impressions "
                   f"· {stats['engagement_rate']:.2f}%")

@@ -12,10 +12,13 @@ database and produce a clear, insight-driven weekly report.
 ID: `379f341af2a380e49a2fe0a6282d4c23`
 Data source: `379f341a-f2a3-80b5-9485-000b2eb7e9cc`
 
-Query all posts with Status = "Posted". For each, read: Name, Type, Publishing date, Account,
-Reactions, Comments, Shares, Impressions, Engagement Rate, Last Updated. Group by platform using
-the `Account` multi_select values (Linkedin */X */Reddit *, see `context/accounts.md`) since one
-row can carry metrics for more than one platform.
+Query all posts with Status = "Posted". For each, read: Name, Type, Publishing date, Account, and
+whichever per-platform metric properties are populated: LinkedIn Reactions/Comments/Shares/
+Impressions/Engagement Rate, X Likes/Replies/Reposts/Impressions/Engagement Rate, Reddit Upvotes/
+Comments/Upvote Ratio, Last Updated. These are separate properties per platform (added 2026-07-13)
+because one row can carry a LinkedIn + X + Reddit post at once — use the `Account` multi_select
+(Linkedin */X */Reddit *, see `context/accounts.md`) to know which platform properties on a given
+row are actually meaningful to report, rather than assuming all rows have all platforms filled in.
 
 ## What to return
 

@@ -85,20 +85,9 @@ def fetch_page_text(page_id: str) -> str:
     return "\n".join(lines)
 
 
-def update_metrics(page_id: str, stats: dict) -> None:
-    """
-    Write engagement numbers back to Notion.
-    `stats` keys: reactions, comments, shares, impressions, engagement_rate (as a percent, e.g.
-    4.38 not 0.0438 — this function does the percent-to-decimal conversion Notion expects).
-    """
-    properties = {
-        "Reactions": {"number": int(stats.get("reactions", 0))},
-        "Comments": {"number": int(stats.get("comments", 0))},
-        "Shares": {"number": int(stats.get("shares", 0))},
-        "Impressions": {"number": int(stats.get("impressions", 0))},
-        "Engagement Rate": {"number": round(stats.get("engagement_rate", 0.0) / 100, 6)},
-        "Last Updated": {"date": {"start": date.today().isoformat()}},
-    }
+def _patch_properties(page_id: str, properties: dict) -> None:
+    properties = dict(properties)
+    properties["Last Updated"] = {"date": {"start": date.today().isoformat()}}
     r = requests.patch(
         f"{NOTION_API_URL}/pages/{page_id}",
         headers=headers(),
@@ -106,3 +95,44 @@ def update_metrics(page_id: str, stats: dict) -> None:
         timeout=15,
     )
     r.raise_for_status()
+
+
+def update_linkedin_metrics(page_id: str, stats: dict) -> None:
+    """
+    stats keys: reactions, comments, shares, impressions, engagement_rate (as a percent, e.g.
+    4.38 not 0.0438 — this function does the percent-to-decimal conversion Notion expects).
+    """
+    _patch_properties(page_id, {
+        "LinkedIn Reactions": {"number": int(stats.get("reactions", 0))},
+        "LinkedIn Comments": {"number": int(stats.get("comments", 0))},
+        "LinkedIn Shares": {"number": int(stats.get("shares", 0))},
+        "LinkedIn Impressions": {"number": int(stats.get("impressions", 0))},
+        "LinkedIn Engagement Rate": {"number": round(stats.get("engagement_rate", 0.0) / 100, 6)},
+    })
+
+
+def update_x_metrics(page_id: str, stats: dict) -> None:
+    """
+    stats keys: likes, replies, reposts, impressions (impressions may be 0/unavailable — X only
+    exposes impression counts to the authenticated posting account, not via app-only bearer auth),
+    engagement_rate (as a percent).
+    """
+    _patch_properties(page_id, {
+        "X Likes": {"number": int(stats.get("likes", 0))},
+        "X Replies": {"number": int(stats.get("replies", 0))},
+        "X Reposts": {"number": int(stats.get("reposts", 0))},
+        "X Impressions": {"number": int(stats.get("impressions", 0))},
+        "X Engagement Rate": {"number": round(stats.get("engagement_rate", 0.0) / 100, 6)},
+    })
+
+
+def update_reddit_metrics(page_id: str, stats: dict) -> None:
+    """
+    stats keys: upvotes, comments, upvote_ratio (as a percent, e.g. 92.0 not 0.92 — Reddit's API
+    itself returns upvote_ratio as a 0-1 fraction; convert to percent before calling this).
+    """
+    _patch_properties(page_id, {
+        "Reddit Upvotes": {"number": int(stats.get("upvotes", 0))},
+        "Reddit Comments": {"number": int(stats.get("comments", 0))},
+        "Reddit Upvote Ratio": {"number": round(stats.get("upvote_ratio", 0.0) / 100, 6)},
+    })

@@ -17,6 +17,7 @@ revision loop before it lands.
 .claude/
   commands/
     draft.md               ← the orchestrator: date + topic → 3 reviewed drafts → Notion + calendar
+    strategy.md              ← campaign planner: goal + date range → day-by-day calendar → skeleton Notion rows
     weekly-strategy.md      ← dormant weekly planner (performance + trends → plan)
   agents/
     style-scout.md          ← hook/subreddit research, called once per platform
@@ -24,8 +25,9 @@ revision loop before it lands.
     x-drafter.md
     reddit-drafter.md       ← also picks the subreddit
     independent-reviewer.md ← the piece that was missing before — actually wired in
-    trend-scout.md          ← dormant, for weekly-strategy
-    performance-reporter.md ← dormant, for weekly-strategy
+    campaign-planner.md      ← sequencing logic for /strategy, does not draft copy
+    trend-scout.md          ← used by /strategy and dormant weekly-strategy
+    performance-reporter.md ← used by /strategy and dormant weekly-strategy
   settings.json
 
 context/
@@ -33,6 +35,7 @@ context/
   linkedin-style.md
   x-style.md
   reddit-style.md           ← subreddit-picking rubric + candidate shortlist
+  campaign-planning.md       ← narrative-arc + cadence rules for /strategy
   accounts.md                ← Notion Account/Person field rules (Account is multi_select, not text)
   ratel-overview.md          ← company + product reference
   flavio-role.md             ← Flavio's role, guardrails, weekly cadence
@@ -80,15 +83,27 @@ Answer the one question it asks (topic + publish date). The orchestrator handles
 research, drafting, independent review with up to 2 automatic revision rounds per platform, and
 the Notion + Calendar write.
 
-### 4. Plan the week (dormant, needs wiring into a cadence)
+### 4. Plan a campaign or a week
+
+```
+/strategy
+```
+
+Give it a goal ("growth push for the SDK", "3-week launch campaign", "a normal content week") and
+a date range. It gathers performance data + trends + the existing pipeline, spawns
+`campaign-planner` to sequence a day-by-day calendar (type, platform, topic brief, and why that
+order works), and once you approve it, writes skeleton Notion rows (`Status: Not started`) so they
+show up on the Content Calendar immediately. It never drafts copy itself — run `/draft` on any
+planned day when you're ready to actually write it.
+
+### 5. Older dormant planner
 
 ```
 /weekly-strategy
 ```
 
-Combines performance data from Notion + a trend scan into a content plan. `trend-scout` and
-`performance-reporter` exist and work standalone; this command just isn't part of the `/draft`
-loop.
+A simpler performance+trends → text plan, superseded by `/strategy` for anything that needs actual
+Notion rows. Kept because `trend-scout`/`performance-reporter` are shared by both.
 
 ---
 
@@ -112,22 +127,32 @@ on the calendar.
 | Publishing date | Date | Target publish date — drives the Content Calendar view |
 | Account | **Multi-select** | See `context/accounts.md` for the exact option set |
 | Person | Person | Team members involved |
-| Reactions / Comments / Shares / Impressions | Number | Auto-updated by the tracker |
-| Engagement Rate | Number (%) | (reactions + comments + shares) / impressions |
-| Last Updated | Date | Last tracker sync date |
+| LinkedIn Reactions / Comments / Shares / Impressions | Number | Auto-updated by `tracker/linkedin_tracker.py` |
+| LinkedIn Engagement Rate | Number (%) | (reactions + comments + shares) / impressions |
+| X Likes / Replies / Reposts / Impressions | Number | Auto-updated by `tracker/x_tracker.py` |
+| X Engagement Rate | Number (%) | (likes + replies + reposts) / impressions |
+| Reddit Upvotes / Comments | Number | Auto-updated by `tracker/reddit_tracker.py` |
+| Reddit Upvote Ratio | Number (%) | Reddit's own upvote ratio, no impressions equivalent exists |
+| Last Updated | Date | Last tracker sync date, shared across all three trackers |
 
 `Account` is a multi_select with a fixed option set, not free text — this drifted from the old
-repo's own docs once already. Always confirm live before writing to it.
+repo's own docs once already. Always confirm live before writing to it. Metrics are per-platform
+properties (added 2026-07-13, renamed from the old repo's single LinkedIn-only Reactions/Comments/
+Shares/Impressions/Engagement Rate columns) because one row can carry a LinkedIn + X + Reddit post
+at once, and a single shared column can't hold three platforms' numbers without conflating them.
 
 ---
 
 ## Performance tracking
 
-LinkedIn tracking is ported and works. X and Reddit tracking are stubs (see the docstrings in
-`tracker/x_tracker.py` / `tracker/reddit_tracker.py` for what's blocking them).
+All three trackers exist and share `tracker/notion_client.py` for the Notion half. LinkedIn is
+proven (ported from the old repo). X and Reddit are written against the real APIs but untested
+live — no credentials existed at build time. Both exit cleanly (code 0) rather than erroring if
+their credentials aren't set, so a scheduled run with only LinkedIn configured won't fail the job.
 
-### Option A: LinkedIn analytics CSV export (no API token needed)
+### LinkedIn
 
+**Option A — CSV export (no API token needed):**
 ```bash
 cd ratel-social
 pip install -r tracker/requirements.txt
@@ -135,17 +160,36 @@ cp .env.example .env  # fill in NOTION_API_KEY
 python tracker/import_csv.py path/to/linkedin-export.csv
 ```
 
-### Option B: LinkedIn API (automated, runs daily via GitHub Actions)
-
-1. Create a LinkedIn Developer App, request Marketing Developer Platform access.
-2. Add `NOTION_API_KEY`, `LINKEDIN_API_TOKEN`, `LINKEDIN_ORG_ID` as repo secrets
-   (`Settings → Secrets → Actions`).
-3. The tracker runs automatically every day at 14:00 UTC, or trigger manually from the Actions tab.
-
-After publishing on LinkedIn, add a line to the Notion page:
+**Option B — API (needs LinkedIn Marketing Developer Platform approval):**
+```bash
+python tracker/linkedin_tracker.py
 ```
-LinkedIn URL: https://linkedin.com/feed/update/urn:li:activity:7XXXXXXXXXXXXXXXXX/
+After publishing, add a line to the Notion page: `LinkedIn URL: https://linkedin.com/feed/update/urn:li:activity:7XXXXXXXXXXXXXXXXX/`
+
+### X
+
+Needs `X_API_BEARER_TOKEN` (developer.x.com — confirm your tier includes tweet `public_metrics`).
+```bash
+python tracker/x_tracker.py
 ```
+After publishing, add a line to the Notion page: `X URL: https://x.com/handle/status/1234567890123456789`
+
+### Reddit
+
+Needs `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` (reddit.com/prefs/apps, a "script" app) and a
+descriptive `REDDIT_USER_AGENT`.
+```bash
+python tracker/reddit_tracker.py
+```
+After publishing, add a line to the Notion page: `Reddit URL: https://www.reddit.com/r/subreddit/comments/postid/title/`
+
+### Automation
+
+Two options, can coexist:
+- **GitHub Actions** (`.github/workflows/tracker.yml`) — runs all three trackers daily at 14:00
+  UTC. Needs the repo pushed to GitHub with the credentials above added as repo secrets.
+- **Claude `/schedule` cloud routine** — doesn't need a GitHub remote. See the routine set up for
+  this repo (created 2026-07-13) for details, or run `/schedule` to create/inspect it.
 
 ---
 
