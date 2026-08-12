@@ -1,8 +1,9 @@
 # Ratel — Company & Product Overview
 
-> Last updated: 2026-06-30. Source: github.com/ratel-ai/ratel + github.com/ratel-ai/ratel-mcp READMEs, ADR 0012, roadmap.md (live-checked, not internal Notion).
+> Last updated: 2026-08-12. Source: github.com/ratel-ai/ratel + github.com/ratel-ai/ratel-mcp READMEs, ADR 0012, roadmap.md, plus a live #product Slack scan (live-checked, not internal Notion).
 > Tags used throughout: [exists] = ships today; [net-new] = planned, not built; [deferred] = real but later.
 > Note: the top-level ratel-ai/ratel README changed substantially since 2026-06-17 — it now leads with the skills suite (`npx skills add ratel-ai/skills --all`) rather than the SDK as the primary "fastest way to integrate." If drafting install-flow copy, re-check the live README rather than assuming this doc's Install Commands section below is still the lead framing.
+> Every fact below with a specific date attached was true on that date — re-verify anything load-bearing (a benchmark number, a "not built yet" claim, a shipped-feature name) against Slack or the live repo before it goes in a post, don't just trust this file's age.
 
 ---
 
@@ -191,6 +192,26 @@ The most widely-used professional relational database. Used in the Core Server t
 The process of converting text into mathematical coordinates. Used for semantic (meaning-based) search. Not required for BM25 text search. Requires an external provider (e.g. OpenAI Embeddings API) or a local model.
 
 ---
+
+## Recent Ships (verify still current before quoting)
+
+### Dynamic Ranking `[exists, shipped 2026-07-27]`
+Also called "Adaptive Ranking" in some internal Slack messages — Dynamic Ranking is the name
+confirmed in the founder meeting transcript, use that one. The catalog learns from what actually
+gets picked: if an agent selects a lower-ranked tool or skill and it turns out to be the right one,
+that item's rank rises for similar future queries. Queries are clustered, and items that keep
+performing well within a cluster keep climbing.
+
+**Status as of 2026-08-12: live and on by default, but no measured accuracy lift yet** — no
+concrete metrics, not trialed with specific clients in a controlled way. It's an indirect accuracy
+mechanism (compensates for inconsistent phrasing), not a direct one. Cost implications haven't been
+addressed either. Per the hard rule on unmeasured claims (`context/hard-rules.md`), describe the
+mechanism and intent only — never imply a proven or measured outcome until this status changes.
+
+### Docs "Ask AI" `[exists, shipped 2026-08-06]`
+An AI chat button on docs.ratel.sh (bottom-right corner of every page) that answers questions about
+Ratel's documentation. Built by Fausto. Minor feature, not typically its own post, but useful
+context if a post touches the docs experience.
 
 ## What Is Built Today vs Not Built
 

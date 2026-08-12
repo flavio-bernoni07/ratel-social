@@ -58,6 +58,22 @@ Broader mad-lib families, useful when the above don't fit the brief:
 - **Contrarian:** "Unpopular opinion: [bold statement]" / "[Common advice] is wrong. Here's why:" /
   "I stopped [common practice] and [positive result]."
 
+## Voice guardrails
+
+- **No AI-slop rhythm.** Don't stack wall-to-wall one-sentence paragraphs with a period after
+  every clause — that's the most obvious LLM tell on LinkedIn. Mix sentence lengths, let two or
+  three related ideas share a paragraph. Natural prose reads faster than a list dressed up as
+  prose.
+- **No self-referential hooks.** Don't open by inventing a specific reader action or scenario you
+  can't actually know ("You added a skill last week and..."). General second-person claims are
+  fine ("Most agents don't fail because of the model"); a fabricated specific moment about the
+  reader is not.
+- **No yapping hooks.** Even when the post has a personal or physical-moment anchor, the hook
+  itself stays terse. Save the color for the earn line and body, not the first sentence.
+- **First-person posts stay first-person.** A founder-voiced or personal post speaks as one named
+  person ("I shipped this last week"), not "we" — don't let a personal angle drift into corporate
+  plural mid-post.
+
 ## Visuals
 
 Real screenshot > data chart/table > diagram > text card > nothing. Never stock photos.

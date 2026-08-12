@@ -19,6 +19,20 @@ anything else (a Style Bible, a memory, a habit), this file wins.
   "synergy".
 - **No outrage, no dunks.**
 - Never present a number, result, or anecdote borrowed from someone else's product as Ratel's own.
+- **Always say "tools and skills" together, never "tools" alone**, when describing the catalog
+  Ratel filters. Ratel retrieves both; dropping "and skills" for punchiness undersells the product.
+  Flagged twice by Giacomo on separate drafts in the predecessor repo — the singular exception is
+  when a line is already anchored to one specific named item ("that tool moves up" after the item
+  was just named), not the catalog in general.
+- **Never call Ratel a "context gateway."** It's a strong team position: "gateway" implies a
+  network proxy, which is wrong — Ratel can run fully in-process with no server at all. Use
+  "context layer" or describe what it does instead.
+- **Never claim a result that hasn't actually been measured.** If a feature is shipped but its
+  impact hasn't been benchmarked or validated with a client yet, describe the mechanism and intent
+  ("designed to...", "the idea is...") rather than the outcome ("this improves accuracy by..."). A
+  founder meeting transcript, a Slack thread, or an explicit "no data yet" from the team overrides
+  any temptation to imply a proven result. This is a broader version of the benchmark-percentage
+  rule above — it applies to any claim, not just percentages.
 
 ## Rules that differ by platform
 
