@@ -1,6 +1,6 @@
 ---
 name: performance-reporter
-description: Reads Notion metrics for all Posted posts across LinkedIn, X, and Reddit, and produces a weekly performance report with insights. Call after running the tracker. Dormant until wired into a weekly-strategy skill.
+description: Reads Notion metrics for all Posted posts across LinkedIn, X, and Reddit, and produces a weekly performance report with insights. Call after running the tracker. Called by `/strategy`, in parallel with `campaign-planner`'s other inputs.
 tools: Read, mcp__claude_ai_Notion__notion-query-database-view, mcp__claude_ai_Notion__notion-fetch
 ---
 

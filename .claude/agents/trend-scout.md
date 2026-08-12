@@ -1,6 +1,6 @@
 ---
 name: trend-scout
-description: Scans LinkedIn, X, and Reddit for trending conversations in the AI agents / developer tools space. Call with a week date or theme to get 3-5 trending angles Ratel could credibly join. Dormant until wired into a weekly-strategy skill.
+description: Scans LinkedIn, X, and Reddit for trending conversations in the AI agents / developer tools space. Call with a week date or theme to get 3-5 trending angles Ratel could credibly join. Called by `/strategy`, in parallel with `campaign-planner`'s other inputs.
 tools: Read, WebSearch
 ---
 

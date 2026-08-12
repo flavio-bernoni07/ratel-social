@@ -21,9 +21,6 @@ Unlike `/draft`, this pipeline is **sequential**, not parallel: script → build
 (hands off to the `hyperframes` skill directly) → voiceover → music/SFX → independent review, with
 the same revision-loop-then-escalate pattern as `/draft`. See Architecture below.
 
-`/weekly-strategy` — Older, simpler performance+trends → text plan. Superseded by `/strategy` for
-anything that needs actual Notion rows, kept because it shares `trend-scout`/`performance-reporter`.
-
 ## Architecture
 
 ```
