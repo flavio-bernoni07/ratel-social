@@ -50,7 +50,8 @@ The actual rules live in `context/hard-rules.md` (cross-platform) and the per-pl
   built (hook shape, thread structure). `context/x-style.md` has the full breakdown.
 - **When something is ambiguous** — whether a claim is safe to make, whether a feature is really
   shipped, whether a number is confirmed — ask in Slack before drafting around the uncertainty. A
-  flagged unknown in a draft's `## Flags` section is fine; a confidently-wrong claim isn't.
+  flagged unknown, raised in the chat reply that hands you the draft, is fine; a confidently-wrong
+  claim isn't. Flags never go on the Notion page, which carries the five deliverable sections only.
 
 ## Escalation
 

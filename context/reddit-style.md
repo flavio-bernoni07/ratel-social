@@ -11,7 +11,21 @@ survive being posted by someone with zero marketing background.
 
 - **Title**: factual, descriptive, never marketing. "We measured X and found Y" style, not "Ratel
   is amazing".
-- **Body**: genuine technical depth, 150-400 words, links allowed inline.
+- **Body**: **~60-80 words target — confirmed 2026-08-16, supersedes the old 150-400 range.** A
+  first tightening pass to ~162-196 words was still judged too long. This is short even for
+  Reddit — most of the usual technical-depth padding has to go; keep one real concrete detail if it
+  fits in budget, cut the rest. Each beat/idea gets its own line (apply LinkedIn's one-beat-per-line
+  discipline here too, even though Reddit traditionally reads as prose paragraphs) — short doesn't
+  mean cramming ideas back into one dense paragraph, it means cutting beats and words. Links allowed
+  inline. A post that genuinely needs to teach real depth (clustering mechanics, a worked example)
+  can run longer as the exception, not the default.
+
+**The LinkedIn "Hard structural gate" section applies here too** — read it in
+`context/linkedin-style.md` and run the same mechanical checks: no paragraph block over 2
+sentences, count and report the word total, no line over ~20 words, delete hedges and
+First/Second connective tissue, fragments and bullet lines are fine, digits not spelled numbers.
+The only Reddit difference is that the *voice* stays plain-technical rather than hook-driven;
+the *structure* is identical. Reddit gets no exemption for "that's just how Reddit reads."
 - Luce posts to Reddit on her own account, not a corporate one — this repo drafts, it never posts.
 
 ## Subreddit-picking rubric

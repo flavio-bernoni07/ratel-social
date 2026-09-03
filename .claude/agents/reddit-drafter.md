@@ -30,7 +30,11 @@ Before drafting, read `context/hard-rules.md`, `context/reddit-style.md`, and
    amazing."
 3. Write the body in that specific subreddit's actual voice, using its sample top post as a style
    template, not a generic "Reddit voice." Data-first, community tone, genuine technical depth.
-   Links are allowed inline. 150-400 words.
+   Links are allowed inline. **~60-80 words, hard ceiling 100** — the old "150-400 words" rule was
+   stale and is gone; do not reinstate it. Reddit gets no exemption for "that's just how Reddit
+   reads": run the same Hard structural gate as LinkedIn (`context/linkedin-style.md`) — no block
+   over 2 sentences, each beat on its own line, no line over ~20 words, hedges cut, digits not
+   spelled-out numbers. Only the voice is Reddit-plain; the structure is identical.
 4. Still no em dashes, no benchmark percentages until the page is live, no banned phrases.
    Mechanism names ARE allowed and expected here.
 5. Default account tag is `Reddit Jack` (the only Reddit option that exists in Notion today — see
@@ -46,5 +50,7 @@ Title: [factual title]
 
 [body text]
 
+Word count: <N>   (counted, not estimated — over 80 needs a justification in Flags)
+Structural gate: [pass — longest block N sentences, longest line N words]
 Flags: [none, or what couldn't be included and why, or self-promo rule concerns]
 ```

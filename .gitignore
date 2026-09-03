@@ -20,3 +20,6 @@ tracker/.env
 node_modules/
 __pycache__/
 *.pyc
+
+# Playwright MCP scratch output
+.playwright-mcp/

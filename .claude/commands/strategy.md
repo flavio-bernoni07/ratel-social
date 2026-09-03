@@ -100,18 +100,30 @@ Properties:
   date:Publishing date:start: [YYYY-MM-DD]
   Type:                       [Problem | Solution | Benchmarks | People | Product | Event | Lauch Week]
   Account:                    [platform/persona tags from the plan — see context/accounts.md]
-  Overview:                   [the topic brief, max 20 words]
-Content:
-  ## Overview
-  [topic brief]
+  Overview:                   [the topic brief, expanded enough that /draft can run later
+                               without re-asking. This is a database property, not a body
+                               section, and it is the only place the brief lives.]
+Content (the same five headings every post page uses, left empty for /draft to fill):
+  ## LinkedIn Draft
+  _Not drafted yet._
   ---
-  ## Strategy context
-  Part of: [theme/campaign name] — [date range]
-  Why this day: [the campaign-planner's "why here" line]
+  ## X Draft
+  _Not drafted yet._
   ---
-  ## Brief for /draft
-  [the topic brief, expanded slightly if useful — enough for /draft to run without re-asking]
+  ## Reddit Draft
+  _Not drafted yet._
+  ---
+  ## Visual suggestion
+  _Not drafted yet._
+  ---
+  ## Visual
+  _Not produced yet._
 ```
+
+A skeleton row gets the same five-section body as a finished one, so a page never changes shape
+between planning and drafting. Do not add a Strategy context, Brief, Overview, or Flags section:
+the campaign reasoning ("why this day", the theme it belongs to) belongs in your chat reply when
+the plan is approved, not on the page.
 
 Setting `Publishing date` is what makes each row appear on the Content Calendar view — there is no
 separate table to hand-edit.

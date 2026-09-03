@@ -64,6 +64,71 @@ and asks the user how to proceed rather than looping forever or silently accepti
   handoff — not tied to any one person's name.
 - `context/growth-playbooks.md` — launch/community strategic frameworks (ORB channels, launch
   phases, content-repurposing atoms, community flywheel) for `campaign-planner` to draw on.
+- `context/brand.md` — canonical brand reference: logo mask technique (PNG mask, not an SVG path —
+  corrected 2026-08-14 after a fabricated SVG path resurfaced twice), full color token table, real
+  font stack (Geist/Geist Mono), UI language, and video-specific look/voice/pacing rules. Load
+  before any HyperFrames video or static-visual build and before any post that touches
+  visual/brand description. When Flavio gives a brand correction or addition in conversation, fold
+  it into this file rather than only applying it inline to the task at hand — it's meant to
+  self-improve over time, not go stale. Treat any pasted brand info with an inline SVG logo path
+  or "Acid Grotesk"/"Geist Pixel Square" font names as suspect until re-verified live.
+- `context/social-visuals.md` — how to craft a single branded static social-post image (1600x900,
+  HyperFrames, `snapshot --frames 1`, never a video) — layout template, visual-device vocabulary,
+  and the same hard content rules applied to a still image. `/post` offers this as an alternative
+  to `/video` for the visual half of a release.
+
+## Design skills run first, before any visual is built
+
+Every skill that produces a visual (`/video`, `/post`, or the static-image path in
+`context/social-visuals.md`) loads the design skills **before** the first composition is written.
+Not after a draft render, not only when something looks off. Motion, typography, hierarchy, and
+polish are decisions made up front, and they are far more expensive to retrofit onto a composition
+that already exists.
+
+The installed design skills live in `.agents/skills/` and are symlinked into `.claude/skills/`.
+Load, in this order:
+
+1. `apple-design` — always. Typography (optical sizing, tracking, leading), depth and materials,
+   and the physical-motion foundations behind everything that moves.
+2. `emil-design-eng` — always. UI polish and the invisible details that separate a composition
+   that reads as crafted from one that reads as generated.
+3. `animate` — whenever anything moves, which is every video and any static visual with a hold
+   animation. It walks the decisions in the order that determines whether motion feels right:
+   whether to animate at all, purpose, tool, properties, curve.
+4. `animation-vocabulary` — when you need the exact term for a motion effect before building or
+   describing it.
+
+Then `review-animations` on the finished composition, before the pipeline's own reviewer agent
+runs. It defaults to flagging and treats approval as earned, which is the bar we want.
+
+`pick-ui-library` and `ask-sonner` are not part of this path. They are web-app skills and have
+nothing to do with rendered social visuals.
+
+Brand tokens from `context/brand.md` layer on top of what the design skills decided. Tokens
+constrain the palette, logo technique, and font stack. They do not substitute for design
+direction, and a visual built without loading the skills above gets rebuilt rather than patched.
+
+## Notion page structure (fixed, five sections)
+
+Every page in the posts database has exactly these five body sections, in this order, and nothing
+else, whether it is a finished draft or a skeleton row created by `/strategy`:
+
+```
+## LinkedIn Draft
+## X Draft
+## Reddit Draft
+## Visual suggestion
+## Visual
+```
+
+No Overview, Brief, Strategy context, Review Notes, Flags, Updates, status notes, or changelogs,
+ever, even when a step produces something that looks worth recording. Notion holds deliverables
+only, and a page never changes shape between planning and drafting.
+
+Review verdicts, escalations, hard-gate concerns, and missing info are reported in the chat reply
+and stay there. The one exception is the `Overview` database property, which `/strategy` uses to
+carry a topic brief forward so `/draft` can run later without re-asking. That is a column, not a
+body section.
 
 ## Notion database
 

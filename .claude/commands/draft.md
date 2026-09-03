@@ -135,39 +135,34 @@ Properties:
   date:Publishing date:start: [YYYY-MM-DD]
   Account:                    [multi_select array — see context/accounts.md]
   Person:                     [see context/accounts.md]
-  Overview:                   [one-sentence description — max 20 words]
-Content (in this order):
-  ## Overview
-  [one-sentence description of the post]
-  ---
-  ## Brief
-  [angle, key claim, anything to avoid]
-  ---
+Content (in this order, exactly these five headings):
   ## LinkedIn Draft
   [full post text]
   ---
   ## X Draft
-  [tweet or thread — 1/ 2/ 3/ format for threads]
+  [tweet or thread, 1/ 2/ 3/ format for threads]
   ---
   ## Reddit Draft
   **Title:** [factual title]
-  **Subreddit:** r/[subreddit] — [one-line rubric justification]
+  **Subreddit:** r/[subreddit], [one-line rubric justification]
   [body text]
   ---
-  ## Review Notes
-  LinkedIn: [APPROVED (round N) | ESCALATED — see flags]
-  X: [APPROVED (round N) | ESCALATED — see flags]
-  Reddit: [APPROVED (round N) | ESCALATED — see flags]
-  ---
   ## Visual suggestion
-  [specific visual description]
+  [specific visual description: what it shows and why it lands]
   ---
-  ## Flags
-  [risks, hard-gate concerns, missing info, escalation details]
+  ## Visual
+  [the finished asset, or its local path, or "Not produced yet"]
 ```
 
-All three platform sections are always present now (unlike the old repo, Reddit was previously
-opt-in — here it's part of every run).
+**The page body has these five sections and nothing else.** No Overview, Brief, Review Notes,
+Flags, Updates, status notes, or changelogs, not even when a step produces something that looks
+worth recording. Notion holds the deliverables only.
+
+Review verdicts, escalations, hard-gate concerns, and missing info go in your chat reply to the
+user and stay there. Do not mirror them into the page, and do not write an `Overview` property
+either.
+
+All three platform sections are always present.
 
 Prepend a callout marking this unambiguously as a machine draft, matching the existing convention:
 

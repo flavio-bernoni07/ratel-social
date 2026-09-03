@@ -18,6 +18,14 @@ anything else (a Style Bible, a memory, a habit), this file wins.
 - **Banned phrases**: "I'm excited to announce", "Thrilled to share", "Game changer", "leverage",
   "synergy".
 - **No outrage, no dunks.**
+- **No paragraph block longer than 2 sentences, on any platform.** One sentence per line is the
+  default; every distinct beat gets its own line. Three sentences run together is an automatic
+  rejection regardless of how good the content is. Fix AI-slop rhythm by varying line *length*,
+  never by merging beats back into a block. See the "Hard structural gate" section in
+  `context/linkedin-style.md` for the full mechanical checklist (it applies to Reddit too).
+- **Every draft must report its own count** — word count for LinkedIn/Reddit, character count for
+  X. Counted, not estimated. A draft without a number attached is not finished, and a reviewer
+  must not return SATISFIED without verifying it.
 - Never present a number, result, or anecdote borrowed from someone else's product as Ratel's own.
 - **Always say "tools and skills" together, never "tools" alone**, when describing the catalog
   Ratel filters. Ratel retrieves both; dropping "and skills" for punchiness undersells the product.
@@ -40,7 +48,7 @@ anything else (a Style Bible, a memory, a habit), this file wins.
 |---|---|---|---|
 | Mechanism names (BM25, vector search, MCP internals) | **Not allowed** in body — describe outcomes only | **Allowed**, framed as steps rather than jargon-drops | **Allowed** — Reddit's technical audience expects real depth |
 | Links in body | **Not allowed** — first reply only | **Not allowed** — final reply only | **Allowed** — Reddit posts are expected to link out |
-| Length | 150-250 words (up to 400 for milestones) | Short post: 3-6 lines. Thread: 5-15 tweets, only for genuine step sequences | 150-400 words |
+| Length | **~60-80 words target** (confirmed 2026-08-16, supersedes the old 150-250 range — see `context/linkedin-style.md`) | **Hard limit: 280 characters per post** (per-tweet, including thread entries — count characters, not lines; see `context/x-style.md`). **Working target 150-220 chars** — 280 is the wall, not the goal. Short post: 3-6 lines. Thread: 5-15 tweets, only for genuine step sequences | **~60-80 words target** (confirmed 2026-08-16, supersedes the old 150-400 range — see `context/reddit-style.md`) |
 | Hashtags / emoji | Max 3 hashtags, max 2 emoji | Not used | Not used — off-genre for Reddit |
 | Tone | Direct, honest, specific, earned over claimed | Terser, imperative, closes on urgency not summary | Data-first, community tone, "here's what we found" not "we're excited to share" |
 

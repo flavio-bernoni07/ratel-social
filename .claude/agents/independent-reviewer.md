@@ -32,13 +32,36 @@ expected on Reddit).
   if it would work as a LinkedIn hook.
 
 ### Structure
-- **LinkedIn**: hook → earn line (makes "see more" worth it) → 3-5 short paragraphs, one idea each
-  → single takeaway. Must read fast on mobile: short paragraphs, no walls of text.
+
+**Run the mechanical gate first, before any judgment scoring.** These are counts, not opinions,
+and any one of them failing is an automatic NEEDS REVISION regardless of how good the copy reads:
+
+| Check | LinkedIn | Reddit | X |
+|---|---|---|---|
+| Longest block | ≤ 2 sentences | ≤ 2 sentences | n/a |
+| Longest line | ≤ ~20 words | ≤ ~20 words | n/a |
+| Total count | ≤ 80 words (100 hard ceiling) | ≤ 80 words (100 hard ceiling) | ≤ 280 chars, target 150-220 |
+
+Report the actual counted numbers in your review. If the drafter didn't supply them, count them
+yourself — never accept an estimate, and never return SATISFIED on a draft whose counts you have
+not personally verified. A 3-sentence block is a fail even at 60 words; a 190-word LinkedIn post
+in 5 tidy blocks is exactly the shape Flavio rejected on 2026-08-18.
+
+- **LinkedIn**: hook → earn line (makes "see more" worth it) → 2-3 short beats, **each on its own
+  line** → single takeaway. The word "paragraph" is retired: merged beats are the failure mode, and
+  fixing AI-slop rhythm means varying line *length*, never merging lines. Read the Hard structural
+  gate and the worked before/after in `context/linkedin-style.md` before scoring.
 - **X**: either a short raw multi-line post (each line its own beat, blank line between) or a
   numbered thread, and only a thread if it's a genuine step-by-step sequence. Padding one idea
-  into a fake thread is a fail.
+  into a fake thread is a fail. **Before scoring, count the actual character length of the full
+  post** (or each individual tweet in a thread) — 280 characters is X's hard platform limit, not a
+  style guideline, and "3-6 short lines" can easily add up to 400+ characters if each line is a
+  full sentence. Over 280 is an automatic hard-rule violation (see below), not a structure-score
+  deduction — score it as a rule failure even if the line count and rhythm otherwise look right.
 - **Reddit**: data-first body matching the target subreddit's actual format (check the sample top
   post the drafter cited). A LinkedIn-shaped post pasted into Reddit, or vice versa, is a fail.
+  Reddit gets **no exemption** from the block/line/word gate above for "that's just how Reddit
+  reads" — only the voice differs, the structure is identical to LinkedIn's.
 - Platform mismatch is always a fail: a LinkedIn essay pasted onto X, a punchy X line expanded
   with no added substance for LinkedIn, a marketing post dropped into a technical subreddit.
 
@@ -68,7 +91,10 @@ good, and your fix should include a different subreddit pick.
 Check the platform-specific table in `context/hard-rules.md`. Common fails: em dashes anywhere
 (including a double-hyphen used as a substitute), unconfirmed benchmark percentages, mechanism
 names where the platform disallows them, links in the body where the platform disallows them,
-banned phrases, a marketing-sounding Reddit title.
+banned phrases, a marketing-sounding Reddit title, **an X post/tweet over 280 characters** (count
+it, don't eyeball it — report the actual character count in your review), **any paragraph block
+over 2 sentences on any platform**, and **a LinkedIn or Reddit body over 80 words** without a
+justified exception.
 
 ## What to search (only if needed)
 

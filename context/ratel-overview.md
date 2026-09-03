@@ -4,6 +4,7 @@
 > Tags used throughout: [exists] = ships today; [net-new] = planned, not built; [deferred] = real but later.
 > Note: the top-level ratel-ai/ratel README changed substantially since 2026-06-17 — it now leads with the skills suite (`npx skills add ratel-ai/skills --all`) rather than the SDK as the primary "fastest way to integrate." If drafting install-flow copy, re-check the live README rather than assuming this doc's Install Commands section below is still the lead framing.
 > Every fact below with a specific date attached was true on that date — re-verify anything load-bearing (a benchmark number, a "not built yet" claim, a shipped-feature name) against Slack or the live repo before it goes in a post, don't just trust this file's age.
+> Correction 2026-08-17: Layer 5 (Cloud) is no longer "not built at all." Verified live against `ratel-ai/ratel-cloud` + `ratel-ai/ratel-cloud-sdk` (public on npm as `@ratel-ai/cloud-sdk`): Cloud is built and deployed at cloud.ratel.sh. What is still UNCONFIRMED is whether it is publicly GA / launched — see the Layer 5 section and re-verify launch status with Rob/Giacomo before any post claims Cloud is "live."
 
 ---
 
@@ -114,16 +115,20 @@ Plugins that integrate Ratel directly into the coding tools developers use daily
 
 ---
 
-### Layer 5: Cloud `[net-new — not built at all]`
+### Layer 5: Cloud `[exists — deployed at cloud.ratel.sh; public GA / launch status UNCONFIRMED as of 2026-08-17]`
 
-The paid, managed, closed-source tier. Ratel runs the Core Server for you, with smarter extra features.
+> This section previously said Cloud was "net-new — not built at all." That was stale. Verified live 2026-08-17 against `ratel-ai/ratel-cloud` (the app) and `ratel-ai/ratel-cloud-sdk` (the client). Cloud is built and deployed. Whether it is publicly GA / launched is a separate, still-unconfirmed question — re-check with Rob/Giacomo before any post says it is "live."
 
-**Contains:**
-- **Managed Server** — hosted Core Server, no ops work for the customer
-- **Advanced Analytics** — deeper usage pattern analysis beyond the OSS aggregation
-- **Continuous Improvement (advanced)** — same loop as basic, but using fine-tuned AI models trained specifically for this task. The closed part is the trained model weights, not the mechanism.
-- **Advanced Model Routing** `[open — not yet designed]` — smarter routing decisions computed in the Cloud
-- **Skill/Workflow Suggestion** — proposes BRAND NEW skills from observed usage patterns. Cloud-only because it needs an extra AI model call to extract intent from chat history.
+The paid, managed, closed-source tier, served at **cloud.ratel.sh**. In its current shipped form it is a **context-usage analytics + supervised self-improvement platform**, not merely a hosted Core Server. It runs as a single Next.js app (ECS Fargate + private RDS PostgreSQL, Clerk auth, Stripe billing) exposing a **v1 HTTP API** authenticated by a project API key (`rtl_…`).
+
+**What it actually does today:**
+- **Context-usage analytics** — agents send run telemetry through the Ratel SDK (OTLP spans/logs; wired up with `@ratel-ai/cloud-sdk`'s runtime `attach()`, which needs `@ratel-ai/sdk` >= 0.10.0). The dashboard breaks down how each agent spends its **input-token budget across skills, tools, history, memory, and user input**, with cost + latency views and ranked, model-assisted suggestions for what to reclaim.
+- **Managed skills catalog** — skills live in a project and move `draft → published → archived` with opt-in optimistic concurrency (roll back a bad skill instead of racing a fleet into a broken state). Retrieved by the same BM25/semantic engine as the OSS core.
+- **Supervised self-improvement** — intent analysis over real conversations finds coverage gaps, then drafts brand-new skills (and skill edits) for review. The flow is async: analyze → suggest → poll → **approve**. A human signs off on every suggestion; nothing ships itself. Uses the SDK's native BM25 retrievability plus, optionally, an Anthropic model call.
+- **Deeper surfaces (feature-flagged, default off)** — a flagged trace explorer, an experiment/Calibration comparison (A/B plus a shadow ranking of the project's own catalog), and a Playground that re-runs that ranking.
+- **Advanced Model Routing** `[open — not yet designed]` — smarter routing decisions computed in the Cloud. Still not designed.
+
+**Honesty caveat:** Cloud is brand new and has **no published benchmarks or measured outcomes**. Describe mechanism and intent only, never a proven result, and do not claim it is publicly GA/"live" until confirmed (see `context/hard-rules.md`, unmeasured-claims + no-repo-shipped-claims rules).
 
 ---
 
@@ -229,8 +234,8 @@ context if a post touches the docs experience.
 | SDK server mode | not built (waits for Core Server) |
 | Harness plugins (daemon, UI) | not built |
 | Model routing consumer | not built |
-| Cloud (all of it) | not built |
-| Advanced model routing | not even fully designed |
+| Cloud — analytics + managed skills catalog + supervised self-improvement | **EXISTS** — deployed at cloud.ratel.sh (public GA/launch unconfirmed as of 2026-08-17) |
+| Advanced model routing (Cloud) | not even fully designed |
 
 ---
 
@@ -242,7 +247,7 @@ context if a post touches the docs experience.
 | v0.2.x | Chat management (long-running agent memory) |
 | v0.3.x | Memories (facts that persist across sessions) |
 | v0.4.x | Context Graph — tools, skills, memories, history in one unified substrate |
-| Cloud (parallel) | Managed server + Advanced analytics + Continuous improvement + Skill suggestion |
+| Cloud (shipping now, at cloud.ratel.sh) | Context-usage analytics + managed skills catalog + supervised self-improvement (intent analysis → skill suggestion). Deployed; public GA/launch status unconfirmed as of 2026-08-17 |
 
 ---
 
@@ -284,6 +289,9 @@ ratel-mcp skill activate          # moves ~/.claude/skills -> ~/.ratel/skills so
 
 # Onboarding skills suite (meta — teaches the agent to set up Ratel itself)
 npx skills add ratel-ai/skills --all
+
+# Ratel Cloud client — management + supervised self-improvement over the v1 HTTP API
+npm install @ratel-ai/cloud-sdk   # runtime event/catalog publishing needs @ratel-ai/sdk >= 0.10.0
 
 # Rust
 cargo add ratel-ai-core

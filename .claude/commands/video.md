@@ -13,6 +13,40 @@ goes wrong if skipped.
 
 ---
 
+## House style — locked, applies to every video
+
+The canonical reference is `videos/cloud-day1-launch-video/index.html` (rendered as
+`Video-Cloud.mp4`). Every video this pipeline produces matches it on all five points below. These
+are not per-project taste calls, and a composition missing any of them gets fixed before it is
+reviewed, not after.
+
+1. **Handheld camera rig.** Two GSAP-driven wrappers inside `#root`: `#drift` (slow wander,
+   `scale: 1.035`, ~3.4s segments at ±7px / ±5px / ±0.06deg) nested around `#shake` (micro-jitter,
+   ~0.34s segments at ±2.6px / ±2.0px / ±0.05deg). Seed the RNG with a fixed integer so the path is
+   deterministic across renders. Never put a CSS transform on either — GSAP owns both.
+2. **Flash cuts.** Scene changes are one frame (1/30s) of `#e5e5e7` at `z-index: 50`, placed
+   *outside* the camera rig, with the scene swap hard-set under it. No crossfades. The final logo
+   lock is the one deliberate exception and dissolves instead. Each flash gets the
+   `camera-flash-whoosh-transition-hit.mp3` hit started 0.20s early so the transient lands on the
+   white frame.
+3. **Background.** The stage carries exactly this, never a flat near-black fill:
+
+   ```css
+   background:
+     radial-gradient(ellipse 900px 700px at 100% -6%, rgba(237,81,38,0.22) 0%, rgba(237,81,38,0) 55%),
+     radial-gradient(ellipse 900px 800px at 0% 108%, rgba(35,148,82,0.26) 0%, rgba(35,148,82,0) 55%),
+     linear-gradient(155deg, #023a2e 0%, #001c16 60%, #00130f 100%);
+   ```
+
+4. **Music level.** BGM clip at `data-volume="0.2"`, final render landing near **-13.7 LUFS**
+   integrated. Verify on the rendered file with `ffmpeg -i <file> -af ebur128 -f null -`.
+5. **End voiceover is a real recording.** Every video closes on
+   `/Users/flaviobernoni/Desktop/AUDIO REBE END.wav` — a person saying "Ratel, live now" (2.07s).
+   Copy it into `assets/audio/` and place it under the logo lock. Never generate the closing line
+   with TTS.
+
+---
+
 ## Step 0 — Ask for input
 
 ```
@@ -42,6 +76,13 @@ the user. Don't hand an unresolved flag into the HyperFrames build.
 ---
 
 ## Step 2 — Build the composition
+
+**Load the design skills before invoking `hyperframes`, not after.** `apple-design` and
+`emil-design-eng` always, `animate` for the motion decisions, `animation-vocabulary` when you need
+the exact term for an effect. They set typography, hierarchy, depth, and motion intent; then
+`context/brand.md` constrains palette, logo, and fonts on top. A composition built first and
+design-checked afterwards gets rebuilt, since layout and type decisions don't retrofit cheaply.
+`CLAUDE.md` has the full ordering and the rationale.
 
 This step runs in the main conversation, not a sub-agent — HyperFrames' own intent layer is
 interactive (it may need a routing or run-shape decision) and works best with direct user access,
@@ -88,9 +129,18 @@ Agent: video-music-sfx
 Input: { project_dir: "videos/<slug>/", mood_hint: <inferred from the topic/tone>, total_duration: <final runtime from Step 3> }
 ```
 
-This agent defaults to *not* adding music unless it's earned its place — respect that default,
-don't push for a bed just because the option exists. If it surfaces the HeyGen-vs-local-generation
-Preflight choice, relay it to the user the same way as Step 3.
+Music and SFX are included by default — override the agent's own bias toward skipping. Brief it
+for an **exciting, energetic** bed (not ambient/mysterious/restrained), mixed under the voiceover
+at `data-volume="0.2"` for the full runtime, plus transition SFX on every flash cut and a hit on
+each reveal. "Narration runs continuously so there's no silent slot" is not a reason to skip; a bed
+under narration is normal. Only a hard blocker (no provider, licensing) justifies skipping.
+
+Then wire the closing line by hand, not through the agent: copy
+`/Users/flaviobernoni/Desktop/AUDIO REBE END.wav` into `assets/audio/` and place it under the logo
+lock. That line is a real recording and is never regenerated.
+
+If it surfaces the HeyGen-vs-local-generation Preflight choice, relay it to the user the same way
+as Step 3.
 
 ---
 

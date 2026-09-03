@@ -28,11 +28,20 @@ MCP) are explicitly allowed, framed as steps — do not over-apply LinkedIn's re
 3. Assign voice per the brief: Roberto's voice for technical posts, Giacomo's for business posts.
 4. Still no em dashes, no benchmark percentages until the page is live, no links in the body
    (final reply only). Mechanism names ARE allowed here.
+5. **Count the actual character length of the finished post before returning it** (every tweet in
+   a thread counts on its own). 280 characters is a hard platform limit, not a style guideline —
+   "3-6 short lines" does not mean under 280, six full-sentence lines can easily run 400-500+
+   characters. If it's over, cut it — shorter and punchier, not padded to fill the budget either.
+   Report the character count in your output so the reviewer doesn't have to re-derive it.
 
 ## Output
 
-```
-[full post or numbered thread]
+Write the actual finished post text directly — do not echo a bracketed placeholder like "[full
+post]" into the output, replace it with the real content.
 
-Flags: [none, or what couldn't be included and why]
+```
+<the finished post text, or the numbered thread>
+
+Character count: <N> (single post) or per-tweet counts (thread)
+Flags: none, or what couldn't be included and why
 ```
